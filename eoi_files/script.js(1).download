@@ -1,0 +1,66 @@
+(function($) {
+	$(document).ready( function() {
+		
+		$('html').addClass('js');
+		
+		// Responsive iFrame videos with fitVids (https://github.com/davatron5000/FitVids.js)
+		$("#content").fitVids();
+		
+		$("#scroll-top").on('click',function() {
+			$("html, body").animate({
+				scrollTop: 0
+			}, 600);
+			return false;
+		});
+		
+		
+		// if browser doesn't support input type="date", initialize date picker widget:
+		var datefield = document.createElement("input");
+			datefield.setAttribute("type", "date");
+		if (datefield.type != "date"){ 
+			$(document).ready(function() {
+				$.datepicker.setDefaults(
+					$.extend(
+						{'dateFormat':'yy-mm-dd'},
+						$.datepicker.regional['fr']
+					)
+				);
+
+				$('input[type="date"]').datepicker();
+			});
+		}
+		
+		
+		// Responsive
+		var breakpoint = 'none';
+		var mainNav = $('#access');
+		
+		var mobile_nav_event = 'click';
+		if ( 'ontouchstart' in document.documentElement ) {
+			//mobile_nav_event = 'touchend';
+		}
+		
+		$(window).resize(function() {
+			breakpoint = window.getComputedStyle( document.querySelector('body'), ':before' ).getPropertyValue('content').replace(/\"/g, ''); // replace = trim qoutes if they are part of value.
+			console.log('Breakpoint: '+breakpoint);
+			
+			if ( breakpoint == 'medium' || breakpoint == 'large' ) {
+				//add nav-toggle button
+				if( $('#nav-toggle').length == 0 ) {
+					mainNav.prepend('<button id="nav-toggle" class="nav-button nav-toggle"><span>Menu</span></button>');
+				}
+			} else {
+				// remove nav-toggle button
+				if( $('#nav-toggle').length > 0 ) {
+					$('#nav-toggle').remove();
+				}
+			}
+		}).resize();
+		
+		/* 	Nav toggle */
+		$('#access').on(mobile_nav_event, '#nav-toggle', function(){
+			$('body').toggleClass('nav-on');
+		});
+		
+	});
+})(jQuery);
