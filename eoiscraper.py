@@ -1,5 +1,8 @@
+from pathlib import Path
 from bs4 import BeautifulSoup
+from os.path import exists
 import requests
+import hashlib
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 
@@ -20,9 +23,15 @@ for li in nav_lis:
   urls.append(a['href'])
 
 for link in urls:
-  print(link)
 
   # Get all <article class="post">
+  htmlFilename = hashlib.md5(link)
+  htmlFile = Path('cache/' + htmlFilename)
+  htmlFile.touch(exist_ok=True)
+  f = open(myfile)
+  r  = requests.get(link, headers=headers)
+  data = r.text
+  print(data)
 
     # Loop through each article
 
