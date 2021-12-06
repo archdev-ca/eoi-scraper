@@ -34,6 +34,7 @@ for link in urls:
 
   # Does cache file exist
   if (exists(htmlFile)):
+    print("-----Cache exists")
     # Open cache File
     data = open(htmlFile)
   else :
@@ -44,6 +45,7 @@ for link in urls:
     # Save to cache
     with open(htmlFile, 'w', encoding="utf-8") as f:
       f.write(data.text)
+      print("-----Cache created")
 
 
 
