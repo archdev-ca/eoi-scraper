@@ -47,8 +47,7 @@ for link in urls:
       f.write(data.text)
       print("-----Cache created")
 
-
-
-    # Loop through each article
+  # Parse file
+  soup = BeautifulSoup(data, features="html.parser")
 
   # Check for title <h1 class="entry-title"><a>EOI Draw</a></h1>
