@@ -7,7 +7,11 @@ import re
 
 drawContentsBlocks = []
 draws = {}
+summary = {
+  "min": 0
+}
 drawsText = []
+drawScores = []
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 
@@ -71,6 +75,12 @@ for block in drawContentsBlocks:
   score = re.search('([0-9].*)', lowestLI.text).group(1)
 
   drawsText.append(h3.text + ": " + score )
+  drawScores.append(score)
+  drawScores.sort()
+  summary["min"] = drawScores[0]
 
 for draw in drawsText:
   print(draw)
+
+print("==============================")
+print("Min Score: " + summary["min"])
